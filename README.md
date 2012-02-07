@@ -3,6 +3,7 @@ Compare two strings to see what has changed, and perform some string manipulatio
 
 ## Original purpose
 Developed to provide several different autocomplete features in a multiline free-text address input fields.
+
 * Changes on the first line would autocomplete the full address from users' most used addresses.
 * Changes on the lines after the first line matching
  * the start of a street name would autocomplete the street name.
@@ -10,7 +11,7 @@ Developed to provide several different autocomplete features in a multiline free
  * zip codes would autocomplete the city name.
 
 ## Basic example
-See `example/autocomplete-lines-starting-with-digits.html` for an example where even lines that start with digits are autocompleted with names matching these digits.
+See [`example/autocomplete-lines-starting-with-digits.html`](example/autocomplete-lines-starting-with-digits.html) for an example where even lines that start with digits are autocompleted with names matching these digits.
 
 ## Usage
 EditDidWhat works best with smaller changes, such as single key strokes.
