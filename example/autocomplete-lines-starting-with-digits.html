@@ -19,7 +19,7 @@
 	</ul>
 	<fieldset>
 		<legend>Input with basic inline autocomplete</legend>
-		<textarea id="address" cols="50" rows="10"></textarea>
+		<textarea id="example-input" cols="50" rows="10"></textarea>
 	</fieldset>
 	<script src="../src/editdidwhat.joelpurra.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -47,7 +47,7 @@
 		}
 
 		// Listen on keyup to get the new value in the textarea
-		$("#address")
+		$("#example-input")
 			.on("keyup change", function (event)
 			{
 				autocompleteDigits($(this));
