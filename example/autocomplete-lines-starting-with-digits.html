@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>EditDidWhat &lt;textarea /&gt; input with basic inline autocomplete for even
@@ -10,7 +11,7 @@
 	<p>
 		A listener will wait for user input in the textarea. Enter anything on odd lines,
 		try starting even lines with digits.
-	</p>
+	</p>	
 	<fieldset>
 		<legend>Input with basic inline autocomplete</legend>
 		<textarea id="address" cols="50" rows="10"></textarea>
@@ -23,6 +24,7 @@
 			startsWithDigits = /^(\d+)/,
 			names = "Alfred Baltsar Camilla Diana Erland Frideborg Gunnar Hanna Ivar Jan".split(/\s+/);
 
+		// Multiple digits will be autocompleted to multiple names
 		function getNamesFromDigits(digits)
 		{
 			var 
@@ -39,12 +41,14 @@
 			return output.join(", ");
 		}
 
+		// Listen on keyup to get the new value in the textarea
 		$("#address")
 			.on("keyup change", function (event)
 			{
 				autocompleteDigits($(this));
 			});
 
+		// Check for digits on every other line, and autocomplete the line with names
 		function autocompleteDigits($textarea)
 		{
 			var 
@@ -70,6 +74,7 @@
 				previousValue: current
 			});
 
+			// Don't act on all sorts of changes
 			change = EditDidWhat.detectChange(previous, current);
 
 			if (!(change == EditDidWhat.StatusAdd
@@ -79,11 +84,16 @@
 				return;
 			}
 
+			// Use EditDidWhat do find where the changes were made
 			diffIndex = EditDidWhat.findDifferenceIndex(previous, current);
 			lastDiffIndex = EditDidWhat.findLastDifferenceIndex(previous, current);
 			diffLineNumber = EditDidWhat.getLineNumberAt(current, diffIndex);
 			lastDiffLineNumber = EditDidWhat.getLineNumberAt(current, lastDiffIndex);
 
+			// Don't act if
+			//	the change is on an odd (even in 0-indexed)
+			//	or affects several lines
+			//	or was a linebreak
 			if ((diffLineNumber % 2) === 0
 				|| diffLineNumber !== lastDiffLineNumber
 				|| current.charAt(lastDiffIndex) === '\n')
@@ -91,23 +101,35 @@
 				return;
 			}
 
+			// The full contents of the line that had changes
 			diffLine = EditDidWhat.getLine(current, diffLineNumber);
 
+			// Only do autocomplete if the line starts with digits
 			if (startsWithDigits.test(diffLine))
 			{
 				startsWithDigits.exec(diffLine);
 
 				digits = RegExp.$1;
 
+				// Get data based on the input on the line
+				// Digits could be zipcodes, product codes or something in another format,
+				// like mail addresses, usernames, filenames
 				autocompleteWith = getNamesFromDigits(digits);
 
+				// This is the autocomplete; add names after the digits
 				autocompleted = EditDidWhat.replaceLine(current, diffLineNumber, digits + " " + autocompleteWith);
 
+				// Get line bounds to select the text below
 				diffLineStart = EditDidWhat.getLineStart(autocompleted, diffLineNumber);
 				diffLineEnd = EditDidWhat.getLineEnd(autocompleted, diffLineNumber);
 
+				// Update the textarea
 				$textarea.val(autocompleted);
+
+				// Select the autocompleted text to let the user continue typing digits
 				$textarea.caret(diffLineStart + digits.length, diffLineEnd + 1);
+
+				// Depending on the changes made, optionally alert other listeners
 				//$textarea.change();
 			}
 		}
