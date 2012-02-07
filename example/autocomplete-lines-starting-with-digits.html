@@ -1,0 +1,116 @@
+<html>
+<head>
+	<title>EditDidWhat &lt;textarea /&gt; input with basic inline autocomplete for even
+		lines starting with digits</title>
+</head>
+<body>
+	<h1>
+		<a href="https://github.com/joelpurra/editdidwhat">EditDidWhat</a> &lt;textarea
+		/&gt; input with basic inline autocomplete</h1>
+	<p>
+		A listener will wait for user input in the textarea. Enter anything on odd lines,
+		try starting even lines with digits.
+	</p>
+	<fieldset>
+		<legend>Input with basic inline autocomplete</legend>
+		<textarea id="address" cols="50" rows="10"></textarea>
+	</fieldset>
+	<script src="../src/editdidwhat.joelpurra.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://jcaret.googlecode.com/files/jquery.caret.1.02.js"></script>
+	<script>
+		var 
+			startsWithDigits = /^(\d+)/,
+			names = "Alfred Baltsar Camilla Diana Erland Frideborg Gunnar Hanna Ivar Jan".split(/\s+/);
+
+		function getNamesFromDigits(digits)
+		{
+			var 
+				i,
+				digit,
+				output = [];
+
+			for (i = 0; i < digits.length; i += 1)
+			{
+				digit = parseInt(digits.charAt(i));
+				output.push(names[digit]);
+			}
+
+			return output.join(", ");
+		}
+
+		$("#address")
+			.on("keyup change", function (event)
+			{
+				autocompleteDigits($(this));
+			});
+
+		function autocompleteDigits($textarea)
+		{
+			var 
+				previous,
+				current,
+				change,
+				diffIndex,
+				lastDiffIndex,
+				diffLineNumber,
+				lastDiffLineNumber,
+				diffLine,
+				diffLineStart,
+				diffLineEnd,
+				digits,
+				autocompleteWith,
+				autocompleted;
+
+			// Previous value is stored on the <textarea /> element
+			previous = $textarea.data().previousValue || "";
+			current = $textarea.val();
+
+			$textarea.data({
+				previousValue: current
+			});
+
+			change = EditDidWhat.detectChange(previous, current);
+
+			if (!(change == EditDidWhat.StatusAdd
+				|| change == EditDidWhat.StatusReplace
+				|| change == EditDidWhat.StatusAppended))
+			{
+				return;
+			}
+
+			diffIndex = EditDidWhat.findDifferenceIndex(previous, current);
+			lastDiffIndex = EditDidWhat.findLastDifferenceIndex(previous, current);
+			diffLineNumber = EditDidWhat.getLineNumberAt(current, diffIndex);
+			lastDiffLineNumber = EditDidWhat.getLineNumberAt(current, lastDiffIndex);
+
+			if ((diffLineNumber % 2) === 0
+				|| diffLineNumber !== lastDiffLineNumber
+				|| current.charAt(lastDiffIndex) === '\n')
+			{
+				return;
+			}
+
+			diffLine = EditDidWhat.getLine(current, diffLineNumber);
+
+			if (startsWithDigits.test(diffLine))
+			{
+				startsWithDigits.exec(diffLine);
+
+				digits = RegExp.$1;
+
+				autocompleteWith = getNamesFromDigits(digits);
+
+				autocompleted = EditDidWhat.replaceLine(current, diffLineNumber, digits + " " + autocompleteWith);
+
+				diffLineStart = EditDidWhat.getLineStart(autocompleted, diffLineNumber);
+				diffLineEnd = EditDidWhat.getLineEnd(autocompleted, diffLineNumber);
+
+				$textarea.val(autocompleted);
+				$textarea.caret(diffLineStart + digits.length, diffLineEnd + 1);
+				//$textarea.change();
+			}
+		}
+	</script>
+</body>
+</html>
