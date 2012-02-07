@@ -16,13 +16,13 @@
 {
 	var edw = namespace.EditDidWhat = {};
 
-	// TODO: expand with edw.Insert
 	edw.StatusUnknown = "EditDidWhat.StatusUnknown";
-	edw.StatusAdd = "EditDidWhat.StatusAdd";
-	edw.StatusRemove = "EditDidWhat.StatusRemove";
+	edw.StatusInsert = "EditDidWhat.StatusInsert";
+	edw.StatusTruncate = "EditDidWhat.StatusTruncate";
 	edw.StatusReplace = "EditDidWhat.StatusReplace";
 	edw.StatusNoChange = "EditDidWhat.StatusNoChange";
 	edw.StatusAppended = "EditDidWhat.StatusAppended";
+	edw.StatusSplice = "EditDidWhat.StatusSplice";
 
 	edw.detectChange = function (previous, current)
 	{
@@ -35,12 +35,17 @@
 				return edw.StatusAppended;
 			}
 
-			return edw.StatusAdd;
+			return edw.StatusInsert;
 		}
 
 		if (previous.length > current.length)
 		{
-			return edw.StatusRemove;
+			if(diffIndex === edw.getShortestLength(previous, current))
+			{
+				return edw.StatusTruncate;
+			}
+
+			return edw.StatusSplice;
 		}
 
 		if (previous.length === current.length)
@@ -84,6 +89,37 @@
 		return i;
 	};
 
+	edw.reverse = function (str)
+	{
+		var array = str.split('');
+		array.reverse();
+
+		return array.join('');
+	};
+
+	edw.findLastDifferenceIndexAlignRight = function (previous, current, start)
+	{
+		if (previous === current)
+		{
+			return -1;
+		}
+
+		var 
+			previousReverse = edw.reverse(previous),
+			currentReverse = edw.reverse(current),
+			longestLength = edw.getLongestLength(previousReverse, currentReverse),
+			startReverse;
+
+		if (start === undefined)
+		{
+			start = longestLength - 1;
+		}
+
+		startReverse = longestLength - 1 - start;
+
+		return longestLength - 1 - edw.findDifferenceIndex(previousReverse, currentReverse, startReverse);
+	};
+
 	edw.findLastDifferenceIndex = function (previous, current, start)
 	{
 		if (previous === current)
@@ -118,11 +154,11 @@
 	edw.getShortestLength = function (a, b)
 	{
 		if (a === undefined
-            || b === undefined
-            || a === null
-            || b === null
-            || typeof (a) !== "string"
-            || typeof (b) !== "string")
+			|| b === undefined
+			|| a === null
+			|| b === null
+			|| typeof (a) !== "string"
+			|| typeof (b) !== "string")
 		{
 			throw new Error("Invalid arguments: \"" + a + "\", \"" + b + "\".");
 		}
@@ -133,11 +169,11 @@
 	edw.getLongestLength = function (a, b)
 	{
 		if (a === undefined
-            || b === undefined
-            || a === null
-            || b === null
-            || typeof (a) !== "string"
-            || typeof (b) !== "string")
+			|| b === undefined
+			|| a === null
+			|| b === null
+			|| typeof (a) !== "string"
+			|| typeof (b) !== "string")
 		{
 			throw new Error("Invalid arguments: \"" + a + "\", \"" + b + "\".");
 		}
@@ -148,10 +184,10 @@
 	edw.getCount = function (str, subpattern)
 	{
 		if (str === undefined
-            || subpattern === undefined
-            || str === null
-            || subpattern === null
-            || typeof (str) !== "string"
+			|| subpattern === undefined
+			|| str === null
+			|| subpattern === null
+			|| typeof (str) !== "string"
 			|| (typeof (subpattern) !== "string"
 				&& !(subpattern instanceof RegExp))
 			|| (typeof (subpattern) === "string"
@@ -242,7 +278,7 @@
 			if (currentChar === '\n')
 			{
 				if (i === 0
-                    || previousChar === '\n')
+					|| previousChar === '\n')
 				{
 					end = i;
 				}

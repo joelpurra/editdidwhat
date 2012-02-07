@@ -9,8 +9,9 @@
 		<a href="https://github.com/joelpurra/editdidwhat">EditDidWhat</a> &lt;textarea
 		/&gt; input with basic inline autocomplete</h1>
 	<p>
-		A listener will wait for user input in the textarea. Enter anything on odd lines,
-		try starting even lines with digits.
+		A listener will wait for user input in the textarea. For demonstration purposes,
+		only every other row autocompletes. Enter anything on odd lines (no autocomplete),
+		try starting even lines with digits (names will autocomplete).
 	</p>
 	<ul>
 		<li>Using <a href="http://jquery.com/">jQuery</a> to set event listeners.</li>
@@ -29,28 +30,17 @@
 			startsWithDigits = /^(\d+)/,
 			names = "Alfred Baltsar Camilla Diana Erland Frideborg Gunnar Hanna Ivar Jan".split(/\s+/);
 
-		// Multiple digits will be autocompleted to multiple names
-		function getNamesFromDigits(digits)
-		{
-			var 
-				i,
-				digit,
-				output = [];
-
-			for (i = 0; i < digits.length; i += 1)
-			{
-				digit = parseInt(digits.charAt(i));
-				output.push(names[digit]);
-			}
-
-			return output.join(", ");
-		}
-
 		// Listen on keyup to get the new value in the textarea
 		$("#example-input")
 			.on("keyup change", function (event)
 			{
+				// Check changes and autocomplete
 				autocompleteDigits($(this));
+			})
+			.on("keydown", function (event)
+			{
+				// If there is a selection (from the autocomplete), skip it when using enter or tab
+				return skipSelectionIfSkipKey(event, $(this));
 			});
 
 		// Check for digits on every other line, and autocomplete the line with names
@@ -64,6 +54,7 @@
 				lastDiffIndex,
 				diffLineNumber,
 				lastDiffLineNumber,
+				isOneLineEdit,
 				diffLine,
 				diffLineStart,
 				diffLineEnd,
@@ -82,26 +73,42 @@
 			// Don't act on all sorts of changes
 			change = EditDidWhat.detectChange(previous, current);
 
-			if (!(change == EditDidWhat.StatusAdd
-				|| change == EditDidWhat.StatusReplace
-				|| change == EditDidWhat.StatusAppended))
+			if (!(change === EditDidWhat.StatusInsert
+				|| change === EditDidWhat.StatusReplace
+				|| change === EditDidWhat.StatusSplice
+				|| change === EditDidWhat.StatusAppended))
 			{
 				return;
 			}
 
 			// Use EditDidWhat do find where the changes were made
 			diffIndex = EditDidWhat.findDifferenceIndex(previous, current);
-			lastDiffIndex = EditDidWhat.findLastDifferenceIndex(previous, current);
 			diffLineNumber = EditDidWhat.getLineNumberAt(current, diffIndex);
-			lastDiffLineNumber = EditDidWhat.getLineNumberAt(current, lastDiffIndex);
+
+			// Theses statuses can have changes in the middle of the current value
+			// - need to check from the front and the back to see where the changes
+			// have occured. If they are on two different lines, don't do anything.
+			if (change === EditDidWhat.StatusInsert
+				|| change === EditDidWhat.StatusReplace
+				|| change === EditDidWhat.StatusSplice)
+			{
+				lastDiffIndexAlignRight = EditDidWhat.findLastDifferenceIndexAlignRight(previous, current);
+				lastDiffLineNumber = EditDidWhat.getLineNumberAt(current, Math.min(current.length - 1, lastDiffIndexAlignRight));
+
+				isOneLineEdit = (diffLineNumber === lastDiffLineNumber);
+			}
+			else
+			{
+				isOneLineEdit = true;
+			}
 
 			// Don't act if
-			//	the change is on an odd (even in 0-indexed)
+			//	the change is on an odd (which is even in 0-indexed)
 			//	or affects several lines
 			//	or was a linebreak
 			if ((diffLineNumber % 2) === 0
-				|| diffLineNumber !== lastDiffLineNumber
-				|| current.charAt(lastDiffIndex) === '\n')
+				|| !isOneLineEdit
+				|| current.charAt(diffIndex) === '\n')
 			{
 				return;
 			}
@@ -132,11 +139,62 @@
 				$textarea.val(autocompleted);
 
 				// Select the autocompleted text to let the user continue typing digits
-				$textarea.caret(diffLineStart + digits.length, diffLineEnd + 1);
+				$textarea.caret(diffLineStart + digits.length, diffLineEnd);
 
 				// Depending on the changes made, optionally alert other listeners
-				//$textarea.change();
+				$textarea.change();
 			}
+		}
+
+		// If there is a selection (from the autocomplete), skip it when using enter or tab
+		function skipSelectionIfSkipKey(event, $textarea)
+		{
+			var 
+				start = $textarea.caret().start,
+				end = $textarea.caret().end;
+
+			if (isAutocompleteSkippableKeycode(event.which)
+				&& 0 <= start
+				&& start < end)
+			{
+				event.preventDefault();
+
+				$textarea.caret(end, end);
+
+				return false;
+			}
+		}
+
+		// Multiple digits will be autocompleted to multiple names
+		function getNamesFromDigits(digits)
+		{
+			var 
+				i,
+				digit,
+				output = [];
+
+			for (i = 0; i < digits.length; i += 1)
+			{
+				digit = parseInt(digits.charAt(i));
+				output.push(names[digit]);
+			}
+
+			return output.join(", ");
+		}
+
+		// Check if key code means selection should be skipped
+		function isAutocompleteSkippableKeycode(keycode)
+		{
+			// Keys from
+			// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
+			var 
+				DOM_VK_TAB = 9,
+				DOM_VK_RETURN = 13,
+				DOM_VK_ENTER = 14;
+
+			return keycode === DOM_VK_TAB
+					|| keycode === DOM_VK_RETURN
+					|| keycode === DOM_VK_ENTER;
 		}
 	</script>
 </body>
