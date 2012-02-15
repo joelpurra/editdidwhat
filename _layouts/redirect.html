@@ -1,0 +1,11 @@
+---
+layout: bare
+---
+<head>
+	<title>{{ page.title | xml_escape }}</title>
+	<meta http-equiv="Refresh" content="0; url={{ page.target }}" />
+	{% include ga.html %}
+</head>
+<body>
+	<a href="{{ page.target }}">{{ page.title | xml_escape }}</a>
+</body>
