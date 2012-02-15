@@ -2,11 +2,11 @@
 layout: bare
 ---
 <head>
-	<title>{{ projectName }}: {{ page.title | xml_escape }}</title>
+	<title>{{ site.projectName }}: {{ page.title | xml_escape }}</title>
 </head>
 <body>
 	<h1>
-		<a href="{{ projectUrl }}">{{ projectName }}</a>: {{ page.title | xml_escape }}
+		<a href="{{ site.projectUrl }}">{{ site.projectName }}</a>: {{ page.title | xml_escape }}
 	</h1>
 	{{ content }}
 {% include ga.html %}

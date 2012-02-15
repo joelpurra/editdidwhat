@@ -2,10 +2,10 @@
 layout: bare
 ---
 <head>
-	<title>{{ projectName | xml_escape }}</title>
-	<meta http-equiv="Refresh" content="0; url={{ projectUrl }}" />
+	<title>{{ site.projectName | xml_escape }}</title>
+	<meta http-equiv="Refresh" content="0; url={{ site.projectUrl }}" />
 {% include ga.html %}
 </head>
 <body>
-	<a href="{{ projectUrl }}">{{ projectName | xml_escape }}</a>
+	<a href="{{ site.projectUrl }}">{{ site.projectName | xml_escape }}</a>
 </body>
