@@ -1,4 +1,4 @@
-# EditDidWhat javascript library
+# [EditDidWhat](http://joelpurra.github.com/editdidwhat) javascript library
 Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.
 
 ## Original purpose
