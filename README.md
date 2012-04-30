@@ -10,6 +10,13 @@ Developed to provide several different autocomplete features in a multiline free
  * a complete street name would autocomplete/suggest valid street numbers.
  * zip codes would autocomplete the city name.
 
+## Get it
+
+To include dependencies, make sure to get the submodules too.
+
+```
+git clone --recursive git://github.com/joelpurra/editdidwhat.git
+```
 ## Demos
 * [`example/autocomplete-lines-starting-with-digits.html`](http://joelpurra.github.com/editdidwhat/example/autocomplete-lines-starting-with-digits.html): Even lines that start with digits are autocompleted with names matching these digits.
 
