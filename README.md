@@ -54,7 +54,7 @@ Should be compatible with any javascript-enabled browser. You are encouraged to 
 ## License
 Developed for PTS by Joel Purra <http://joelpurra.se/>
 
-Copyright (c) 2011, 2012, The Swedish Post and Telecom Authority (PTS)
+Copyright (c) 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS)
 All rights reserved.
 
 Released under the BSD license.
