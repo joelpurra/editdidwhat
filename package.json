@@ -1,0 +1,32 @@
+{
+  "name": "editdidwhat",
+  "title": "EditDidWhat",
+  "version": "1.0.0",
+  "description": "Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.",
+  "homepage": "https://joelpurra.com/projects/editdidwhat/",
+  "bugs": {
+    "url": "https://github.com/joelpurra/editdidwhat/issues"
+  },
+  "author": "Joel Purra <code@joelpurra.com> (https://joelpurra.com/)",
+  "main": "src/editdidwhat.joelpurra.js",
+  "scripts": {
+    "build": "rimraf ./docs/dist && mkdirp ./docs/dist && cp ./src/editdidwhat.joelpurra.js ./docs/dist/",
+    "git-add-dist": "git add ./docs/dist/editdidwhat.joelpurra.js"
+  },
+  "pre-commit": [
+    "build",
+    "git-add-dist"
+  ],
+  "license": "BSD-3-Clause",
+  "dependencies": {},
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelpurra/editdidwhat.git"
+  },
+  "keywords": []
+}
