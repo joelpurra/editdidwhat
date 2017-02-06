@@ -9,19 +9,19 @@ title: textarea input with basic inline autocomplete for even lines starting wit
 </p>
 <ul>
 	<li>Using <a href="http://jquery.com/">jQuery</a> to set event listeners.</li>
-	<li>Using <a href="http://code.google.com/p/jcaret/">jQuery Caret (jCaret) plugin</a>
+	<li>Using <a href="https://github.com/joe-loco/jcaret">jQuery Caret (jCaret) plugin</a> (forked)
 		to select the autocompleted text.</li>
 </ul>
 <fieldset>
 	<legend>Input with basic inline autocomplete</legend>
 	<textarea id="example-input" cols="50" rows="10"></textarea>
 </fieldset>
-<script src="../src/editdidwhat.joelpurra.js"></script>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="https://jcaret.googlecode.com/files/jquery.caret.1.02.js"></script>
+<script src="../dist/editdidwhat.joelpurra.js"></script>
+<script src="../external/jquery-3.1.1.min.js"></script>
+<script src="../external/jquery.caret.js"></script>
 <script>
 //<![CDATA[
-	var 
+	var
 			startsWithDigits = /^(\d+)/,
 			names = "Alfred Baltsar Camilla Diana Erland Frideborg Gunnar Hanna Ivar Jan".split(/\s+/);
 
@@ -41,7 +41,7 @@ title: textarea input with basic inline autocomplete for even lines starting wit
 	// Check for digits on every other line, and autocomplete the line with names
 	function autocompleteDigits($textarea)
 	{
-		var 
+		var
 				previous,
 				current,
 				change,
@@ -144,7 +144,7 @@ title: textarea input with basic inline autocomplete for even lines starting wit
 	// If there is a selection (from the autocomplete), skip it when using enter or tab
 	function skipSelectionIfSkipKey(event, $textarea)
 	{
-		var 
+		var
 				start = $textarea.caret().start,
 				end = $textarea.caret().end;
 
@@ -163,7 +163,7 @@ title: textarea input with basic inline autocomplete for even lines starting wit
 	// Multiple digits will be autocompleted to multiple names
 	function getNamesFromDigits(digits)
 	{
-		var 
+		var
 				i,
 				digit,
 				output = [];
@@ -182,7 +182,7 @@ title: textarea input with basic inline autocomplete for even lines starting wit
 	{
 		// Keys from
 		// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
-		var 
+		var
 				DOM_VK_TAB = 9,
 				DOM_VK_RETURN = 13,
 				DOM_VK_ENTER = 14;
