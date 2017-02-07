@@ -1,4 +1,4 @@
-# [EditDidWhat](http://joelpurra.github.com/editdidwhat) javascript library
+# [EditDidWhat](https://joelpurra.github.io/editdidwhat) javascript library
 Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.
 
 ## Original purpose
@@ -18,7 +18,7 @@ To include dependencies, make sure to get the submodules too.
 git clone --recursive git://github.com/joelpurra/editdidwhat.git
 ```
 ## Demos
-* [`example/autocomplete-lines-starting-with-digits.html`](http://joelpurra.github.com/editdidwhat/example/autocomplete-lines-starting-with-digits.html): Even lines that start with digits are autocompleted with names matching these digits.
+* [`example/autocomplete-lines-starting-with-digits.html`](https://joelpurra.github.io/editdidwhat/example/autocomplete-lines-starting-with-digits.html): Even lines that start with digits are autocompleted with names matching these digits.
 
 ## Usage
 EditDidWhat works best with smaller changes, such as single key strokes.
@@ -49,10 +49,10 @@ console.log("diffLineReplaced", diffLineReplaced); // New string with the correc
 EditDidWhat does not have any runtime dependencies.
 
 ## Browser compatibility
-Should be compatible with any javascript-enabled browser. You are encouraged to [run the EditDidWhat test suite](http://joelpurra.github.com/editdidwhat/test/) and then report any issues.
+Should be compatible with any javascript-enabled browser. You are encouraged to [run the EditDidWhat test suite](https://joelpurra.github.io/editdidwhat/test/) and then report any issues.
 
 ## License
-Developed for PTS by Joel Purra <http://joelpurra.se/>
+Developed for PTS by Joel Purra <https://joelpurra.com/>
 
 Copyright (c) 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS)
 All rights reserved.
