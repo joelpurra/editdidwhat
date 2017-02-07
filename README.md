@@ -1,5 +1,13 @@
 # [EditDidWhat](https://joelpurra.com/projects/editdidwhat/) javascript library
 
+<p class="donate">
+  <a href="https://joelpurra.com/donate/proceed/?amount=5&currency=usd"><kbd>Donate $5 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=25&currency=usd"><kbd>Donate $25 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=100&currency=usd&invoice=true"><kbd>Donate $100 now</kbd></a>
+  <a href="https://joelpurra.com/donate/"><kbd>More options</kbd></a>
+</p>
+
+
 Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.
 
 
@@ -68,4 +76,4 @@ Should be compatible with any javascript-enabled browser. You are encouraged to 
 
 ---
 
-[EditDidWhat](https://joelpurra.com/projects/editdidwhat/) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/)
+[EditDidWhat](https://joelpurra.com/projects/editdidwhat/) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/). [Your donations are appreciated!](https://joelpurra.com/donate/)
