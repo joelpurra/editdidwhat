@@ -1,26 +1,33 @@
-# [EditDidWhat](https://joelpurra.github.io/editdidwhat) javascript library
+# [EditDidWhat](https://joelpurra.com/projects/editdidwhat/) javascript library
+
 Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.
 
+
+
 ## Original purpose
+
 Developed to provide several different autocomplete features in a multiline free-text address input fields.
 
-* Changes on the first line would autocomplete the full address from users' most used addresses.
-* Changes on the lines after the first line matching
- * the start of a street name would autocomplete the street name.
- * a complete street name would autocomplete/suggest valid street numbers.
- * zip codes would autocomplete the city name.
+- Changes on the first line would autocomplete the full address from users' most used addresses.
+- Changes on the lines after the first line matching
+  - the start of a street name would autocomplete the street name.
+  - a complete street name would autocomplete/suggest valid street numbers.
+  - zip codes would autocomplete the city name.
+
+
 
 ## Get it
 
-To include dependencies, make sure to get the submodules too.
+- [editdidwhat.joelpurra.js](https://joelpurra.com/projects/editdidwhat/docs/dist/editdidwhat.joelpurra.js)
 
-```
-git clone --recursive git://github.com/joelpurra/editdidwhat.git
-```
+
+
 ## Demos
-* [`example/autocomplete-lines-starting-with-digits.html`](https://joelpurra.github.io/editdidwhat/example/autocomplete-lines-starting-with-digits.html): Even lines that start with digits are autocompleted with names matching these digits.
+- [`example/autocomplete-lines-starting-with-digits.html`](https://joelpurra.com/projects/editdidwhat/docs/example/autocomplete-lines-starting-with-digits.html): Even lines that start with digits are autocompleted with names matching these digits.
+
 
 ## Usage
+
 EditDidWhat works best with smaller changes, such as single key strokes.
 
 ```javascript
@@ -45,16 +52,20 @@ console.log("diffLinePrevious", diffLinePrevious); // The text is miispleed.
 console.log("diffLineCurrent", diffLineCurrent); // The text is corrected.
 console.log("diffLineReplaced", diffLineReplaced); // New string with the corrected line replaced.
 ```
+
+
+
 ## Dependencies
+
 EditDidWhat does not have any runtime dependencies.
 
+
+
 ## Browser compatibility
-Should be compatible with any javascript-enabled browser. You are encouraged to [run the EditDidWhat test suite](https://joelpurra.github.io/editdidwhat/test/) and then report any issues.
+Should be compatible with any javascript-enabled browser. You are encouraged to [run the EditDidWhat test suite](https://joelpurra.com/projects/editdidwhat/docs/test/) and then report any issues.
 
-## License
-Developed for PTS by Joel Purra <https://joelpurra.com/>
 
-Copyright (c) 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS)
-All rights reserved.
 
-Released under the BSD license.
+---
+
+[EditDidWhat](https://joelpurra.com/projects/editdidwhat/) copyright &copy; 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/)
