@@ -68,4 +68,4 @@ Should be compatible with any javascript-enabled browser. You are encouraged to 
 
 ---
 
-[EditDidWhat](https://joelpurra.com/projects/editdidwhat/) copyright &copy; 2011, 2012, 2013, 2014, 2015, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/)
+[EditDidWhat](https://joelpurra.com/projects/editdidwhat/) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017, The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/)
