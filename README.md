@@ -10,6 +10,14 @@
 
 Compare two strings to see what has changed, and perform some string manipulation. Used to see what the user changed in a text input field (single- or multiline), and then act accordingly.
 
+
+
+> ## ⚠️ This project has been archived
+>
+> No future updates are planned. Feel free to continue using it, but expect no support.
+
+
+
 - [Project page](https://joelpurra.com/projects/editdidwhat/)
 - [Source code on Github](https://github.com/joelpurra/editdidwhat)
 - [Multi-line autocomplete demo](https://joelpurra.com/projects/editdidwhat/docs/example/autocomplete-lines-starting-with-digits.html)
